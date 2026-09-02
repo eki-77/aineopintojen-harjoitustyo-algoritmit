@@ -1,7 +1,7 @@
 # Harjoitustyön määrittelydokumentti
 
-Erkki Nurmi
-tietojenkäsittelytieteen kandiohjelma (TKT)
+Erkki Nurmi\
+tietojenkäsittelytieteen kandiohjelma (TKT)\
 Dokumentaatio on toteutettu muutoin suomeksi, mutta koodin sisäiset kommentit ovat englanniksi.
 
 - aihe: Signaalinkäsittely, spektrianalyysi annetusta signaalista ja voimakkaimpien taajuuksien tunnistaminen.
