@@ -2,6 +2,7 @@ from cmath import exp
 from math import pi
 
 def fft(vektori):
+    # vektorin pitää olla array, jonka pituus on kahden potenssi
     pituus = len(vektori)
     kerroin = exp(2 * pi * (0 + 1j) / pituus)
     evens = []
@@ -24,6 +25,3 @@ def fft(vektori):
 
 
 print(fft([0,1,2,3]))
-
-
-#w_N = exp(2 * pi * I / (double) N)
