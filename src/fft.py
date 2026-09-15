@@ -16,8 +16,7 @@ def fft(vektori):
     result_odds = fft(odds)
     result = []
     for k in range(pituus):
-        jj = k % pituus//2
-        #print(jj)
+        jj = k % (pituus // 2)
         result.append(result_evens[jj] + (kerroin ** -k) * result_odds[jj])
         print(result)
     return result
