@@ -17,11 +17,14 @@ class Analyser:
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
-        #print(left_channel)
-        #print(max(left_channel))
-        #print(min(left_channel))
+        print(len(left_channel))
+        print(max(left_channel))
+        print(min(left_channel))
         self.data = left_channel
         self.samplerate = metadata.framerate
+    
+    def valmistele(self, data):
+        pass
     
     def fft(self, vektori):
         # vektorin pitää olla array, jonka pituus on kahden potenssi
@@ -41,13 +44,22 @@ class Analyser:
             jj = k % (pituus // 2)
             result.append(result_evens[jj] + (kerroin ** -k) * result_odds[jj])
             #print(result)
-        # Lasketaan kompleksilukujen itseisarvot palautettavaksi
-        abs_result = [abs(x) for x in result]
+        return result
+    
+    def skaalaa_reaaliluvuksi(self, tulos):
+        pituus = len(tulos)
+        abs_result = [(abs(x) / pituus) for x in tulos]
         return abs_result
-        
+
 
 testi = Analyser("sample1.wav")
-print(testi.fft([0,1,2,3]))
+#print(testi.fft([0,1,2,3]))
+#print(testi.data)
+muunnos = testi.fft(testi.data[:16384])
+tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
+print(tulokset[:16])
+print(max(tulokset))
+print(min(tulokset))
 
 
-
+        
