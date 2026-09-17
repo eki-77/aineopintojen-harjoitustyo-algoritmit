@@ -2,6 +2,7 @@ import wave
 import struct
 from cmath import exp
 from math import pi
+from numpy import hanning
 
 class Analyser:
     def __init__(self, sample):
@@ -24,8 +25,26 @@ class Analyser:
         self.samplerate = metadata.framerate
     
     def valmistele(self, data):
-        pass
-    
+        # ikkunoidaan ääninäyte ja pidennetään kahden potenssiin
+        pituus = len(data)
+        ikkunoitu = list(hanning(pituus) * data)
+        uusi_pituus = self.kahden_potenssi(pituus)
+        result = ikkunoitu + [0.0] * (uusi_pituus - pituus)
+        if len(result) != uusi_pituus:
+            print("virhe")
+            quit
+        return result
+
+
+    def kahden_potenssi(self, pituus):
+        # palauttaa näytteen pituutta pidemmän seuraavan kahden potenssin
+        i = 2
+        while pituus > i:
+            i *= 2
+        return i
+        
+
+
     def fft(self, vektori):
         # vektorin pitää olla array, jonka pituus on kahden potenssi
         pituus = len(vektori)
@@ -60,6 +79,11 @@ tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
 print(tulokset[:16])
 print(max(tulokset))
 print(min(tulokset))
-
+print(hanning(16))
+#print(type(hanning(16) * tulokset[:16]))
+print(list(hanning(16) * tulokset[:16]))
+print(testi.kahden_potenssi(5))
+testi = list(hanning(16) * tulokset[:16])
+print(testi + [0.0] * 5)
 
         
