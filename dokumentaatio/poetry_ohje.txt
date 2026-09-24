@@ -1,0 +1,11 @@
+Poetryn uudessa versiossa ei "poetry shell" enää toimi. Sen sijaan pitää käynnistää virtuaaliympäristö ajamalla:
+
+eval $(poetry env activate)
+
+Pelkkä "poetry env activate" tulostaa komennon, jolla ympäristön saa käynnistettyä, ja "eval" ajaa poetryn tulostaman komennon. 
+
+Virtuaaliympäristössä kirjoittamalla "exit" ei pääse takaisin normaaliin terminaaliin vaan koko terminaali sulkeutuu. Jos haluaa takaisin normaaliin terminaariin, komento on pelkkä "deactivate".
+
+VS Codea en saa käynnistettyä virtuaaliympäristöön käynnistämällä sitä ohjeen mukaan terminaalin virtuaaliympäristön sisältä. Sen sijaan sain sen toimimaan menemällä VS Coden vasemman laidan python-laajennukseen, ja siellä näkyi "Environment managers", josta pystyi valitsemaan poetryn ja aktivoimaan sen auki olevalle projektille. 
+
+
