@@ -77,6 +77,25 @@ class Analyser:
         korit = [round(x * (self.samplerate / self.pituus), 1) for x in range(len(tulokset))]
         return korit
 
+    def plottaa_tulokset(self, tulokset, korit):
+        fig, ax = plt.subplots()
+        ax.set_xlabel("Taajuus (Hz)")
+        ax.set_ylabel("Suhteellinen teho")
+        ax.plot(korit, tulokset)
+        plt.show()
+
+    def etsi_maksimit(self, tulokset):
+        maksimit = []
+        indeksit = range(1,len(tulokset)-1)
+        if tulokset[0] > tulokset[1]:
+            maksimit.append(0)
+        for i in indeksit:
+            if tulokset[i-1] < tulokset[i] and tulokset[i] > tulokset[i+1]:
+                maksimit.append(i)
+        if tulokset[-1] > tulokset[-2]:
+            maksimit.append(len(tulokset)-1)
+        return maksimit
+
 if __name__ == "__main__":
     testi = Analyser()
     testi.lataa("sample1.wav")
@@ -103,8 +122,9 @@ if __name__ == "__main__":
     print("koreja:", len(korit))
     print(korit[:10])
     print(korit[-10:])
-    plt.plot(tulokset)
-    plt.show()
+    testi.plottaa_tulokset(tulokset, korit)
+    #plt.plot(tulokset)
+    #plt.show()
     #print(hanning(16))
     #print(type(hanning(16) * tulokset[:16]))
     #print(list(hanning(16) * tulokset[:16]))

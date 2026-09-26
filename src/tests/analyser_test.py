@@ -12,3 +12,7 @@ class TestAnalyser(unittest.TestCase):
         self.assertEqual(pituus1, 8)
         self.assertEqual(pituus2, 4)
         self.assertEqual(pituus3, 1048576)
+
+    def test_maksimien_haku(self):
+        maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7])
+        self.assertEqual(maksimit, [0,3])
