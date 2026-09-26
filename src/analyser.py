@@ -5,7 +5,10 @@ from math import pi
 from numpy import hanning
 
 class Analyser:
-    def __init__(self, sample):
+    def __init__(self):
+        pass
+
+    def lataa(self, sample):
         # ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 
         # ensimmäinen eli vasen kanava.
         with wave.open(sample) as wav_sample:
@@ -42,8 +45,6 @@ class Analyser:
         while pituus > i:
             i *= 2
         return i
-        
-
 
     def fft(self, vektori):
         # vektorin pitää olla array, jonka pituus on kahden potenssi
@@ -71,7 +72,8 @@ class Analyser:
         return abs_result
 
 if __name__ == "__main__":
-    testi = Analyser("sample1.wav")
+    testi = Analyser()
+    testi.lataa("sample1.wav")
     #print(testi.fft([0,1,2,3]))
     #print(testi.data)
     muunnos = testi.fft(testi.data[:16384])

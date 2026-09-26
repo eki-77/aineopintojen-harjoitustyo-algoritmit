@@ -8,3 +8,6 @@ class TestAnalyser(unittest.TestCase):
     def test_hello_world(self):
         self.assertEqual("Hello world", "Hello world")
 
+    #def test_valmistele_pidentaa_naytetta_oikein(self):
+
+    #    self.assertEqual()
