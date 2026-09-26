@@ -112,7 +112,7 @@ class Analyser:
         tulokset = self.skaalaa_reaaliluvuksi(muunnos)
         korit = self.anna_taajuuskorit(tulokset)
         huiput = self.etsi_maksimit(tulokset)
-        print("Voimakkaimmat taajuudet ovat (hertseinä): ", huiput)
+        print("Voimakkaimmat taajuudet ovat (hertseinä): ", [round(korit[x], 1) for x in huiput])
         self.plottaa_tulokset(tulokset, korit, huiput)
 
 if __name__ == "__main__":
