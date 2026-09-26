@@ -94,7 +94,13 @@ class Analyser:
                 maksimit.append(i)
         if tulokset[-1] > tulokset[-2]:
             maksimit.append(len(tulokset)-1)
-        return maksimit
+        #palauta 10 korkeimman huipun indeksit (tai niin monta kuin löytyi, jos vähemmän kuin 10. Tai None jos ei ole huippuja.)
+        if len(maksimit) == 0:
+            return None
+        kovimmat = sorted(maksimit, key = lambda x : tulokset[x], reverse=True)
+        if len(kovimmat) < 10:
+            return kovimmat
+        return kovimmat[:10]
 
 if __name__ == "__main__":
     testi = Analyser()
@@ -122,7 +128,12 @@ if __name__ == "__main__":
     print("koreja:", len(korit))
     print(korit[:10])
     print(korit[-10:])
+    huiput = testi.etsi_maksimit(tulokset)
+    print(len(huiput))
     testi.plottaa_tulokset(tulokset, korit)
+    kovimmat = sorted(huiput, key = lambda x : tulokset[x], reverse=True)
+    print(kovimmat[:4])
+    print
     #plt.plot(tulokset)
     #plt.show()
     #print(hanning(16))
