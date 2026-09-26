@@ -74,7 +74,7 @@ class Analyser:
         return abs_result
 
     def anna_taajuuskorit(self, tulokset):
-        korit = [round(x * (self.samplerate / self.pituus), 1) for x in range(len(tulokset))]
+        korit = [x * (self.samplerate / self.pituus) for x in range(len(tulokset))]
         return korit
 
     def plottaa_tulokset(self, tulokset, korit, huiput):
@@ -82,7 +82,9 @@ class Analyser:
         ax.set_xlabel("Taajuus (Hz)")
         ax.set_ylabel("Suhteellinen teho")
         ax.plot(korit, tulokset)
-        # Todo: lisää tähän huippujen merkkaus scatter-plottina
+        huiput_x = [korit[x] for x in huiput]
+        huiput_y = [tulokset[x] for x in huiput]
+        ax.scatter(huiput_x, huiput_y, c='xkcd:deep purple', marker='s')
         plt.show()
 
     def etsi_maksimit(self, tulokset):
