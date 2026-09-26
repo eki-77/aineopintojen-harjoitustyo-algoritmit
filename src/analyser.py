@@ -68,8 +68,11 @@ class Analyser:
         return result
     
     def skaalaa_reaaliluvuksi(self, tulos):
+        # Otetaan tuloksesta vain alkupuoli 0 ... N/2-1
+        # Sitten otetaan tulosten itseisarvot ja skaalataan naytteen pituudella
         pituus = len(tulos)
-        abs_result = [(abs(x) / pituus) for x in tulos]
+        alkupuoli = tulos[:int(pituus/2)]
+        abs_result = [(abs(x) / pituus) for x in alkupuoli]
         return abs_result
 
 if __name__ == "__main__":
@@ -91,7 +94,8 @@ if __name__ == "__main__":
     #print(valmisteltu[-16:])
     print(max(tulokset))
     print(min(tulokset))
-    plt.plot()
+    plt.plot(tulokset)
+    plt.show()
     #print(hanning(16))
     #print(type(hanning(16) * tulokset[:16]))
     #print(list(hanning(16) * tulokset[:16]))
