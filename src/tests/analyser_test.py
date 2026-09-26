@@ -1,9 +1,3 @@
-import wave
-import struct
-from cmath import exp
-from math import pi
-from numpy import hanning
-
 import unittest
 from analyser import Analyser
 
