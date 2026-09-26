@@ -3,6 +3,7 @@ import struct
 from cmath import exp
 from math import pi
 from numpy import hanning
+import matplotlib.pyplot as plt 
 
 class Analyser:
     def __init__(self):
@@ -21,9 +22,9 @@ class Analyser:
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
-        print(len(left_channel))
-        print(max(left_channel))
-        print(min(left_channel))
+        #print(len(left_channel))
+        #print(max(left_channel))
+        #print(min(left_channel))
         self.data = left_channel
         self.samplerate = metadata.framerate
     
@@ -74,18 +75,27 @@ class Analyser:
 if __name__ == "__main__":
     testi = Analyser()
     testi.lataa("sample1.wav")
+    valmisteltu = testi.valmistele(testi.data)
     #print(testi.fft([0,1,2,3]))
     #print(testi.data)
-    muunnos = testi.fft(testi.data[:16384])
+    #muunnos = testi.fft(testi.data[:16384])
+    muunnos = testi.fft(valmisteltu)
     tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
+    print(valmisteltu[:16])
     print(tulokset[:16])
+    print(len(tulokset))
+    print(type(muunnos[0]))
+    print(type(valmisteltu[0]))
+    print(type(tulokset[0]))
+    #print(tulokset[-16:])
+    #print(valmisteltu[-16:])
     print(max(tulokset))
     print(min(tulokset))
-    print(hanning(16))
+    plt.plot()
+    #print(hanning(16))
     #print(type(hanning(16) * tulokset[:16]))
-    print(list(hanning(16) * tulokset[:16]))
-    print(testi.kahden_potenssi(5))
-    testi = list(hanning(16) * tulokset[:16])
-    print(testi + [0.0] * 5)
+    #print(list(hanning(16) * tulokset[:16]))
+    #print(testi.kahden_potenssi(5))
+    #testi = list(hanning(16) * tulokset[:16])
+    #print(testi + [0.0] * 5)
 
-        
