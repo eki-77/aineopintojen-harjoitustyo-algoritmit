@@ -70,20 +70,20 @@ class Analyser:
         abs_result = [(abs(x) / pituus) for x in tulos]
         return abs_result
 
-
-testi = Analyser("sample1.wav")
-#print(testi.fft([0,1,2,3]))
-#print(testi.data)
-muunnos = testi.fft(testi.data[:16384])
-tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
-print(tulokset[:16])
-print(max(tulokset))
-print(min(tulokset))
-print(hanning(16))
-#print(type(hanning(16) * tulokset[:16]))
-print(list(hanning(16) * tulokset[:16]))
-print(testi.kahden_potenssi(5))
-testi = list(hanning(16) * tulokset[:16])
-print(testi + [0.0] * 5)
+if __name__ == "__main__":
+    testi = Analyser("sample1.wav")
+    #print(testi.fft([0,1,2,3]))
+    #print(testi.data)
+    muunnos = testi.fft(testi.data[:16384])
+    tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
+    print(tulokset[:16])
+    print(max(tulokset))
+    print(min(tulokset))
+    print(hanning(16))
+    #print(type(hanning(16) * tulokset[:16]))
+    print(list(hanning(16) * tulokset[:16]))
+    print(testi.kahden_potenssi(5))
+    testi = list(hanning(16) * tulokset[:16])
+    print(testi + [0.0] * 5)
 
         
