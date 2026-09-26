@@ -22,9 +22,7 @@ class Analyser:
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
-        #print(len(left_channel))
-        #print(max(left_channel))
-        #print(min(left_channel))
+        print("Näytteen pituus:", len(left_channel))
         self.data = left_channel
         self.samplerate = metadata.framerate
     
@@ -33,12 +31,12 @@ class Analyser:
         pituus = len(data)
         ikkunoitu = list(hanning(pituus) * data)
         uusi_pituus = self.kahden_potenssi(pituus)
+        self.pituus = uusi_pituus
         result = ikkunoitu + [0.0] * (uusi_pituus - pituus)
         if len(result) != uusi_pituus:
             print("virhe")
             quit
         return result
-
 
     def kahden_potenssi(self, pituus):
         # palauttaa näytteen pituutta pidemmän seuraavan kahden potenssin
@@ -68,22 +66,29 @@ class Analyser:
         return result
     
     def skaalaa_reaaliluvuksi(self, tulos):
-        # Otetaan tuloksesta vain alkupuoli 0 ... N/2-1
+        # Otetaan FFT:n tuloksesta vain alkupuoli 0 ... N/2-1
         # Sitten otetaan tulosten itseisarvot ja skaalataan naytteen pituudella
         pituus = len(tulos)
         alkupuoli = tulos[:int(pituus/2)]
         abs_result = [(abs(x) / pituus) for x in alkupuoli]
         return abs_result
 
+    def anna_taajuuskorit(self, tulokset):
+        korit = [round(x * (self.samplerate / self.pituus), 1) for x in range(len(tulokset))]
+        return korit
+
 if __name__ == "__main__":
     testi = Analyser()
     testi.lataa("sample1.wav")
     valmisteltu = testi.valmistele(testi.data)
+    print("valmistellun pituus", len(valmisteltu))
     #print(testi.fft([0,1,2,3]))
     #print(testi.data)
     #muunnos = testi.fft(testi.data[:16384])
     muunnos = testi.fft(valmisteltu)
+    print("muunnoksen pituus", len(muunnos))
     tulokset = testi.skaalaa_reaaliluvuksi(muunnos)
+    print("tulosten pituus", len(tulokset))
     print(valmisteltu[:16])
     print(tulokset[:16])
     print(len(tulokset))
@@ -94,6 +99,10 @@ if __name__ == "__main__":
     #print(valmisteltu[-16:])
     print(max(tulokset))
     print(min(tulokset))
+    korit = testi.anna_taajuuskorit(tulokset)
+    print("koreja:", len(korit))
+    print(korit[:10])
+    print(korit[-10:])
     plt.plot(tulokset)
     plt.show()
     #print(hanning(16))
