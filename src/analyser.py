@@ -22,7 +22,7 @@ class Analyser:
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
-        print("Näytteen pituus:", len(left_channel))
+        #print("Näytteen pituus:", len(left_channel))
         self.data = left_channel
         self.samplerate = metadata.framerate
     
@@ -77,11 +77,12 @@ class Analyser:
         korit = [round(x * (self.samplerate / self.pituus), 1) for x in range(len(tulokset))]
         return korit
 
-    def plottaa_tulokset(self, tulokset, korit):
+    def plottaa_tulokset(self, tulokset, korit, huiput):
         fig, ax = plt.subplots()
         ax.set_xlabel("Taajuus (Hz)")
         ax.set_ylabel("Suhteellinen teho")
         ax.plot(korit, tulokset)
+        # Todo: lisää tähän huippujen merkkaus scatter-plottina
         plt.show()
 
     def etsi_maksimit(self, tulokset):
@@ -102,9 +103,20 @@ class Analyser:
             return kovimmat
         return kovimmat[:10]
 
+    def analysoi(self, sample):
+        self.lataa(sample)
+        valmisteltu = self.valmistele(self.data)
+        muunnos = self.fft(valmisteltu)
+        tulokset = self.skaalaa_reaaliluvuksi(muunnos)
+        korit = self.anna_taajuuskorit(tulokset)
+        huiput = self.etsi_maksimit(tulokset)
+        print("Voimakkaimmat taajuudet ovat (hertseinä): ", huiput)
+        self.plottaa_tulokset(tulokset, korit, huiput)
+
 if __name__ == "__main__":
     testi = Analyser()
-    testi.lataa("sample1.wav")
+    testi.analysoi("sample1.wav")
+    '''
     valmisteltu = testi.valmistele(testi.data)
     print("valmistellun pituus", len(valmisteltu))
     #print(testi.fft([0,1,2,3]))
@@ -130,10 +142,8 @@ if __name__ == "__main__":
     print(korit[-10:])
     huiput = testi.etsi_maksimit(tulokset)
     print(len(huiput))
+    print(huiput)
     testi.plottaa_tulokset(tulokset, korit)
-    kovimmat = sorted(huiput, key = lambda x : tulokset[x], reverse=True)
-    print(kovimmat[:4])
-    print
     #plt.plot(tulokset)
     #plt.show()
     #print(hanning(16))
@@ -142,4 +152,5 @@ if __name__ == "__main__":
     #print(testi.kahden_potenssi(5))
     #testi = list(hanning(16) * tulokset[:16])
     #print(testi + [0.0] * 5)
+    '''
 
