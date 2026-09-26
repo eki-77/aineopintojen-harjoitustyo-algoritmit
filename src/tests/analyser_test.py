@@ -15,4 +15,4 @@ class TestAnalyser(unittest.TestCase):
 
     def test_maksimien_haku(self):
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7])
-        self.assertEqual(maksimit, [0,3])
+        self.assertEqual(maksimit, [0,3,5,9])
