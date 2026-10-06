@@ -33,9 +33,6 @@ class Analyser:
         uusi_pituus = self.kahden_potenssi(pituus)
         self.pituus = uusi_pituus
         result = ikkunoitu + [0.0] * (uusi_pituus - pituus)
-        if len(result) != uusi_pituus:
-            print("virhe")
-            quit
         return result
 
     def kahden_potenssi(self, pituus):
