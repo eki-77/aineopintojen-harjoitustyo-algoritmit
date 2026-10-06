@@ -6,12 +6,18 @@ from numpy import hanning
 import matplotlib.pyplot as plt 
 
 class Analyser:
+    """Luokka, jonka avulla analysoidaan ääninäytteestä voimakkaimmat taajuudet.
+    """
     def __init__(self):
         pass
 
     def lataa(self, sample):
-        # ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 
-        # ensimmäinen eli vasen kanava.
+        """ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 
+        ensimmäinen eli vasen kanava.
+
+        Args:
+            sample: käsiteltävän tiedoston nimi
+        """
         with wave.open(sample) as wav_sample:
             metadata = wav_sample.getparams()
             if metadata.sampwidth != 2:
@@ -114,5 +120,6 @@ class Analyser:
 
 if __name__ == "__main__":
     testi = Analyser()
-    testi.analysoi("sample1.wav")
+    #testi.analysoi("sample1.wav")
+    testi.analysoi("wav/440Hz_44100Hz_16bit_05sec.wav")
  
