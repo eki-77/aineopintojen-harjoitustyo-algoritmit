@@ -4,6 +4,7 @@ from cmath import exp
 from math import pi
 from numpy import hanning
 import matplotlib.pyplot as plt 
+import os
 
 class Analyser:
     """Luokka, jonka avulla analysoidaan ääninäytteestä voimakkaimmat taajuudet.
@@ -108,8 +109,16 @@ class Analyser:
             return kovimmat
         return kovimmat[:10]
 
-    def analysoi(self, sample):
-        self.lataa(sample)
+    def analysoi(self):
+        ohjelman_hakemisto = os.path.dirname(__file__)
+        self.samplerate = 0
+        while self.samplerate == 0:
+            try:
+                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta)")
+                sample_polkuineen = os.path.join(ohjelman_hakemisto, "wav/", sample_nimi)
+                self.lataa(sample_polkuineen)
+            except:
+                print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
         valmisteltu = self.valmistele(self.data)
         muunnos = self.fft(valmisteltu)
         tulokset = self.skaalaa_reaaliluvuksi(muunnos)
@@ -120,6 +129,6 @@ class Analyser:
 
 if __name__ == "__main__":
     testi = Analyser()
-    #testi.analysoi("sample1.wav")
-    testi.analysoi("wav/440Hz_44100Hz_16bit_05sec.wav")
+    testi.analysoi()
+    
  
