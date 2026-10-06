@@ -5,6 +5,11 @@ class TestAnalyser(unittest.TestCase):
     def setUp(self):
         self.testi = Analyser()
 
+    def test_fft(self):
+        vastaus = self.testi.fft([0,1,2,3])
+        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
+        self.assertEqual(pyoristetty, [6, -2+2j, -2, -2-2j])
+
     def test_valmistele_pidentaa_naytetta_oikein(self):
         pituus1 = len(self.testi.valmistele([1,2,3,4,5]))
         pituus2 = len(self.testi.valmistele([1,2,3,4]))
