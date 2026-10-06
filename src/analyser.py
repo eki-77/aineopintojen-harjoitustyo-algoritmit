@@ -40,7 +40,6 @@ class Analyser:
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
-        #print("Näytteen pituus:", len(left_channel))
         self.data = left_channel
         
     
