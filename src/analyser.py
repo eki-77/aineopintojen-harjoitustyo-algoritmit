@@ -16,8 +16,7 @@ class Analyser:
         """ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 
         ensimmäinen eli vasen kanava.
 
-        Args:
-            sample: käsiteltävän tiedoston nimi
+        Kysytään tiedoston nimeä käyttäjältä kunnes tiedoston lataaminen onnistuu
         """
         ohjelman_hakemisto = os.path.dirname(__file__)
         self.samplerate = 0
@@ -31,8 +30,11 @@ class Analyser:
                         raise TypeError("Ääninäytteen tulee olla 16-bittinen")
                     frames = wav_sample.readframes(metadata.nframes)
                 self.samplerate = metadata.framerate
-            except TypeError as te:
-                print(te)
+            except TypeError as t_e:
+                print(t_e)
+            except wave.Error as w_e:
+                print("Wav-tiedosto on jollakin tapaa epäkelpo:")
+                print(w_e)
             except:
                 print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
         format = "<" + "h" * (len(frames) // 2)
