@@ -12,26 +12,35 @@ class Analyser:
     def __init__(self):
         pass
 
-    def lataa(self, sample):
+    def lataa(self):
         """ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 
         ensimmäinen eli vasen kanava.
 
         Args:
             sample: käsiteltävän tiedoston nimi
         """
-        with wave.open(sample) as wav_sample:
-            metadata = wav_sample.getparams()
-            if metadata.sampwidth != 2:
-                print("Virhe: ääninäytteen tulee olla 16-bittinen.")
-                quit()
-            #print(metadata)
-            frames = wav_sample.readframes(metadata.nframes)
+        ohjelman_hakemisto = os.path.dirname(__file__)
+        self.samplerate = 0
+        while self.samplerate == 0:
+            try:
+                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta)")
+                sample_polkuineen = os.path.join(ohjelman_hakemisto, "wav/", sample_nimi)
+                with wave.open(sample_polkuineen) as wav_sample:
+                    metadata = wav_sample.getparams()
+                    if metadata.sampwidth != 2:
+                        raise TypeError("Ääninäytteen tulee olla 16-bittinen")
+                    frames = wav_sample.readframes(metadata.nframes)
+                self.samplerate = metadata.framerate
+            except TypeError as te:
+                print(te)
+            except:
+                print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
         #print("Näytteen pituus:", len(left_channel))
         self.data = left_channel
-        self.samplerate = metadata.framerate
+        
     
     def valmistele(self, data):
         # ikkunoidaan ääninäyte ja pidennetään kahden potenssiin
@@ -110,15 +119,7 @@ class Analyser:
         return kovimmat[:10]
 
     def analysoi(self):
-        ohjelman_hakemisto = os.path.dirname(__file__)
-        self.samplerate = 0
-        while self.samplerate == 0:
-            try:
-                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta)")
-                sample_polkuineen = os.path.join(ohjelman_hakemisto, "wav/", sample_nimi)
-                self.lataa(sample_polkuineen)
-            except:
-                print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
+        self.lataa()
         valmisteltu = self.valmistele(self.data)
         muunnos = self.fft(valmisteltu)
         tulokset = self.skaalaa_reaaliluvuksi(muunnos)
