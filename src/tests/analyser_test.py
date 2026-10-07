@@ -21,3 +21,7 @@ class TestAnalyser(unittest.TestCase):
     def test_maksimien_haku(self):
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7])
         self.assertEqual(maksimit, [9,0,3,5])
+        maksimit = self.testi.etsi_maksimit([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        self.assertEqual(maksimit, None)
+        maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7,0,1,0,1,0,2,0,2,0,2,0,2,0,2,0,2,0,1,0,1,0])
+        self.assertEqual(maksimit, [9,0,3,5,15,17,19,21,23,25])
