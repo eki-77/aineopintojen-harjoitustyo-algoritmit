@@ -17,6 +17,13 @@ class TestAnalyser(unittest.TestCase):
         io = KonsoliIo()
         self.testi = Analyser(io)
 
+    def test_lataa(self):
+        io = StubIo(["200Hz_-17dBFS_440Hz_-17dBFS_1s.wav", "q"])
+        self.testi = Analyser(io)
+        self.testi.lataa()
+        self.assertEqual(len(self.testi.data), 44101)
+        self.assertEqual(self.testi.samplerate, 44100)
+
     def test_lataa_yleinen_latausvirhe(self):
         io = StubIo(["virhenimi", "q"])
         self.testi = Analyser(io)
