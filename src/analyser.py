@@ -8,6 +8,9 @@ import os
 import sys
 
 class KonsoliIo:
+    """Luokka, joka hoitaa syötteen luvun käyttäjältä sekä tulostuksen.
+    Otettiin käyttöön, jotta voidaan tehdä automaattitestejä eri syötteillä.
+    """
     def lue(self, teksti):
         return input(teksti)
 
@@ -210,7 +213,8 @@ class Analyser:
         self.plottaa_tulokset(tulokset, korit, huiput)
 
 if __name__ == "__main__":
-    testi = Analyser()
+    io = KonsoliIo()
+    testi = Analyser(io)
     testi.analysoi()
     
  
