@@ -22,7 +22,7 @@ class Analyser:
     """
     def __init__(self, io_olio):
         self._io_olio = io_olio
-        pass
+        
 
     def lataa(self):
         """ladataan wav-tiedosto, jos kanavia on enemmäin kuin 1 otetaan vain 

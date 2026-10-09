@@ -1,5 +1,5 @@
 import unittest
-from analyser import Analyser
+from analyser import Analyser, KonsoliIo
 
 class StubIo:
     def __init__(self, inputs):
@@ -14,8 +14,29 @@ class StubIo:
 
 class TestAnalyser(unittest.TestCase):
     def setUp(self):
+        io = KonsoliIo()
+        self.testi = Analyser(io)
+
+    def test_lataa_yleinen_latausvirhe(self):
         io = StubIo(["virhenimi", "q"])
         self.testi = Analyser(io)
+        with self.assertRaises(SystemExit):
+            self.testi.lataa()
+        self.assertEqual(io.outputs[0], "Tiedoston lataaminen ei onnistunut, yritä uudelleen")
+
+    def test_lataa_rikkinainen_wav(self):
+        io = StubIo(["epakelpo_wav.wav", "q"])
+        self.testi = Analyser(io)
+        with self.assertRaises(SystemExit):
+            self.testi.lataa()
+        self.assertEqual(io.outputs[0], "Wav-tiedosto on jollakin tapaa epäkelpo:")
+
+    def test_lataa_aaninayte_ei_ole_16_bittinen(self):
+        io = StubIo(["Sine1KHz_24bit_eli_ei_toimi.wav", "q"])
+        self.testi = Analyser(io)
+        with self.assertRaises(SystemExit):
+            self.testi.lataa()
+        self.assertEqual(str(io.outputs[0]), "Ääninäytteen tulee olla 16-bittinen")
 
     def test_fft(self):
         vastaus = self.testi.fft([0,1,2,3])
