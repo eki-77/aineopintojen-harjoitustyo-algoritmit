@@ -14,7 +14,7 @@ class StubIo:
 
 class TestAnalyser(unittest.TestCase):
     def setUp(self):
-        io = StubIO("virhenimi", "q")
+        io = StubIo(["virhenimi", "q"])
         self.testi = Analyser(io)
 
     def test_fft(self):

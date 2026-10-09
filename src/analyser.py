@@ -209,7 +209,8 @@ class Analyser:
         tulokset = self.skaalaa_reaaliluvuksi(muunnos)
         korit = self.anna_taajuuskorit(tulokset)
         huiput = self.etsi_maksimit(tulokset)
-        self._io_olio.kirjoita("Voimakkaimmat taajuudet ovat (hertseinä): ", [round(korit[x], 1) for x in huiput])
+        txt = f"Voimakkaimmat taajuudet ovat (hertseinä): {[round(korit[x], 1) for x in huiput]}"
+        self._io_olio.kirjoita(txt)
         self.plottaa_tulokset(tulokset, korit, huiput)
 
 if __name__ == "__main__":
@@ -217,4 +218,3 @@ if __name__ == "__main__":
     testi = Analyser(io)
     testi.analysoi()
     
- 
