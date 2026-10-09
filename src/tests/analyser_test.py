@@ -18,7 +18,7 @@ class TestAnalyser(unittest.TestCase):
         self.testi = Analyser(io)
 
     def test_lataa(self):
-        io = StubIo(["200Hz_-17dBFS_440Hz_-17dBFS_1s.wav", "q"])
+        io = StubIo(["200Hz_-17dBFS_440Hz_-17dBFS_1s.wav"])
         self.testi = Analyser(io)
         self.testi.lataa()
         self.assertEqual(len(self.testi.data), 44101)
@@ -45,11 +45,6 @@ class TestAnalyser(unittest.TestCase):
             self.testi.lataa()
         self.assertEqual(str(io.outputs[0]), "Ääninäytteen tulee olla 16-bittinen")
 
-    def test_fft(self):
-        vastaus = self.testi.fft([0,1,2,3])
-        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
-        self.assertEqual(pyoristetty, [6, -2+2j, -2, -2-2j])
-
     def test_valmistele_pidentaa_naytetta_oikein(self):
         pituus1 = len(self.testi.valmistele([1,2,3,4,5]))
         pituus2 = len(self.testi.valmistele([1,2,3,4]))
@@ -57,6 +52,18 @@ class TestAnalyser(unittest.TestCase):
         self.assertEqual(pituus1, 8)
         self.assertEqual(pituus2, 4)
         self.assertEqual(pituus3, 1048576)
+
+    def test_fft(self):
+        vastaus = self.testi.fft([0,1,2,3])
+        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
+        self.assertEqual(pyoristetty, [6, -2+2j, -2, -2-2j])
+
+    def test_skaalaa_reaaliluvuksi(self):
+        vektori = [6, -3+4j, -2, -3-4j, 6, -2+2j, -2, -2-2j]
+        self.assertEqual(self.testi.skaalaa_reaaliluvuksi(vektori), [0.75, 0.625, 0.25, 0.625])
+
+
+
 
     def test_maksimien_haku(self):
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7])
