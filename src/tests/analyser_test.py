@@ -57,13 +57,25 @@ class TestAnalyser(unittest.TestCase):
         vastaus = self.testi.fft([0,1,2,3])
         pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
         self.assertEqual(pyoristetty, [6, -2+2j, -2, -2-2j])
+        ##
+        vastaus = self.testi.fft([0,0])
+        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
+        self.assertEqual(pyoristetty, [0,0])
+        ##
+        vastaus = self.testi.fft([1,1,1,1,1,1,1,1])
+        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
+        self.assertEqual(pyoristetty, [8,0,0,0,0,0,0,0])
+
 
     def test_skaalaa_reaaliluvuksi(self):
         vektori = [6, -3+4j, -2, -3-4j, 6, -2+2j, -2, -2-2j]
         self.assertEqual(self.testi.skaalaa_reaaliluvuksi(vektori), [0.75, 0.625, 0.25, 0.625])
 
-
-
+    def test_anna_taajuuskorit(self):
+        self.testi.samplerate = 8000
+        self.testi.pituus = 16
+        korit = self.testi.anna_taajuuskorit([1,2,3,4,5,6,7,8])
+        self.assertEqual(korit, [0,500,1000,1500,2000,2500,3000,3500])
 
     def test_maksimien_haku(self):
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7])
