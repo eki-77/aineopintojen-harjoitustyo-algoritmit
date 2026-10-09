@@ -7,10 +7,18 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
+class KonsoliIo:
+    def lue(self, teksti):
+        return input(teksti)
+
+    def kirjoita(self, teksti):
+        print(teksti)
+
 class Analyser:
     """Luokka, jonka avulla analysoidaan ääninäytteestä voimakkaimmat taajuudet.
     """
-    def __init__(self):
+    def __init__(self, io_olio):
+        self._io_olio = io_olio
         pass
 
     def lataa(self):
