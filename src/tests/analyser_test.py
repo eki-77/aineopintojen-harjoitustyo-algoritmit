@@ -1,9 +1,21 @@
 import unittest
 from analyser import Analyser
 
+class StubIo:
+    def __init__(self, inputs):
+        self.inputs = inputs
+        self.outputs = []
+
+    def lue(self, teksti):
+        return self.inputs.pop(0)
+
+    def kirjoita(self, teksti):
+        self.outputs.append(teksti)
+
 class TestAnalyser(unittest.TestCase):
     def setUp(self):
-        self.testi = Analyser()
+        io = StubIO("virhenimi", "q")
+        self.testi = Analyser(io)
 
     def test_fft(self):
         vastaus = self.testi.fft([0,1,2,3])

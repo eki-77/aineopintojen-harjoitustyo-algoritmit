@@ -34,7 +34,7 @@ class Analyser:
         self.samplerate = 0
         while self.samplerate == 0:
             try:
-                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta) tai q lopettaaksesi: ")
+                sample_nimi = self._io_olio.lue("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta) tai q lopettaaksesi: ")
                 if sample_nimi == "q":
                     sys.exit(0)
                 sample_polkuineen = os.path.join(ohjelman_hakemisto, "wav/", sample_nimi)
@@ -45,14 +45,14 @@ class Analyser:
                     frames = wav_sample.readframes(metadata.nframes)
                 self.samplerate = metadata.framerate
             except TypeError as t_e:
-                print(t_e)
+                self._io_olio.kirjoita(t_e)
             except wave.Error as w_e:
-                print("Wav-tiedosto on jollakin tapaa epäkelpo:")
-                print(w_e)
+                self._io_olio.kirjoita("Wav-tiedosto on jollakin tapaa epäkelpo:")
+                self._io_olio.kirjoita(w_e)
             except SystemExit:
                 sys.exit(0)
             except:
-                print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
+                self._io_olio.kirjoita("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
         format = "<" + "h" * (len(frames) // 2)
         audio = list(struct.unpack(format, frames))
         left_channel = audio[::metadata.nchannels]
@@ -209,7 +209,7 @@ class Analyser:
         tulokset = self.skaalaa_reaaliluvuksi(muunnos)
         korit = self.anna_taajuuskorit(tulokset)
         huiput = self.etsi_maksimit(tulokset)
-        print("Voimakkaimmat taajuudet ovat (hertseinä): ", [round(korit[x], 1) for x in huiput])
+        self._io_olio.kirjoita("Voimakkaimmat taajuudet ovat (hertseinä): ", [round(korit[x], 1) for x in huiput])
         self.plottaa_tulokset(tulokset, korit, huiput)
 
 if __name__ == "__main__":
