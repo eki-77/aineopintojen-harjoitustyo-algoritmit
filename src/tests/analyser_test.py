@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from analyser import Analyser, KonsoliIo
 
 class StubIo:
@@ -84,3 +85,20 @@ class TestAnalyser(unittest.TestCase):
         self.assertEqual(maksimit, None)
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7,0,1,0,1,0,2,0,2,0,2,0,2,0,2,0,2,0,1,0,1,0])
         self.assertEqual(maksimit, [9,0,3,5,15,17,19,21,23,25])
+
+    @patch("analyser.plt.show")
+    def test_analysoi(self, mock_plt_show):
+        """Testataan koko systeemin toiminta päästä päähän. Käytetään patchiä estämään plot-ikkunan näyttäminen,
+        jotta testit voidaan ajaa täysin automaattisesti ilman käyttäjän puuttumista (ikkunan sulkeminen).
+
+        Args:
+            mock_plt_show (_type_): show-metodin korvaaja
+        """
+        io = StubIo(["200Hz_-17dBFS_440Hz_-17dBFS_1s.wav"])
+        self.testi = Analyser(io)
+        self.testi.analysoi()
+        self.assertEqual(self.testi.samplerate, 44100)
+        self.assertEqual(io.outputs[0], "Voimakkaimmat taajuudet ovat (hertseinä): [440.1, 199.9, 437.4, 196.5, 204.6, 435.4, 445.5, 194.5, 206.6, 433.4]")
+        assert mock_plt_show.called
+
+    
