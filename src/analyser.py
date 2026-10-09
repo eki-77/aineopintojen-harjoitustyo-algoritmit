@@ -5,6 +5,7 @@ from math import pi
 from numpy import hanning
 import matplotlib.pyplot as plt 
 import os
+import sys
 
 class Analyser:
     """Luokka, jonka avulla analysoidaan ääninäytteestä voimakkaimmat taajuudet.
@@ -22,7 +23,9 @@ class Analyser:
         self.samplerate = 0
         while self.samplerate == 0:
             try:
-                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta)")
+                sample_nimi = input("Anna tutkittavan ääninäytteen tiedoston nimi (ohjelma etsii sitä wav-hakemistosta) tai q lopettaaksesi: ")
+                if sample_nimi == "q":
+                    sys.exit(0)
                 sample_polkuineen = os.path.join(ohjelman_hakemisto, "wav/", sample_nimi)
                 with wave.open(sample_polkuineen) as wav_sample:
                     metadata = wav_sample.getparams()
@@ -35,6 +38,8 @@ class Analyser:
             except wave.Error as w_e:
                 print("Wav-tiedosto on jollakin tapaa epäkelpo:")
                 print(w_e)
+            except SystemExit:
+                sys.exit(0)
             except:
                 print("Tiedoston lataaminen ei onnistunut, yritä uudelleen")
         format = "<" + "h" * (len(frames) // 2)
