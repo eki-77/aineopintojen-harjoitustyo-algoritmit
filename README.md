@@ -2,7 +2,9 @@
 
 ## Dokumentaatio
 
-- [Määrittelydokumentti](dokumentaatio/maaritteludokumentti.md)
-- [Toteutusdokumentti]
-- [Testausdokumentti]
+- [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
+- [Toteutusdokumentti](dokumentaatio/toteutusdokumentti.md)
+- [Testausdokumentti](dokumentaatio/testausdokumentti.md)
+
+
 
