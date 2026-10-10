@@ -28,8 +28,8 @@ Tästä voidaan päätellä, että kun n tuplaantuu, laskutoimitusten määrä h
  
 ## Lähteet
 
-Huttunen, Heikki: Signaalinkäsittelyn perusteet (Tampereen teknillinen yliopisto 2014). https://urn.fi/URN:ISBN:978-952-15-3222-1
-https://en.wikipedia.org/wiki/Fast_Fourier_transform
-https://en.wikipedia.org/wiki/Discrete_Fourier_transform
-Python-dokumentaatio
-Stack overflow -foorumi
+- Huttunen, Heikki: Signaalinkäsittelyn perusteet (Tampereen teknillinen yliopisto 2014). https://urn.fi/URN:ISBN:978-952-15-3222-1
+- https://en.wikipedia.org/wiki/Fast_Fourier_transform
+- https://en.wikipedia.org/wiki/Discrete_Fourier_transform
+- Python-dokumentaatio
+- Stack overflow -foorumi
