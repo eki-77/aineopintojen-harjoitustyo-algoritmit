@@ -2,6 +2,13 @@ Testausasiat olivat minulle ihan uusia. Poetryyn törmäsin tällä kurssilla en
 
 Kattavuusraportti sanoo tällä hetkellä:
 
+![](./kuvat/coverage2026_10_10.png)
+
+
+
+
+
+
 Name              Stmts   Miss Branch BrPart  Cover   Missing
 -------------------------------------------------------------
 src/analyser.py     121      5     30      1    96%   15, 18, 218-220
