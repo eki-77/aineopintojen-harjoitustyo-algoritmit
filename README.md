@@ -21,8 +21,50 @@ Ohjelman käyttö vaatii pythonista vähintään version 3.10 ja poetrystä väh
 
 2. Asenna riippuvuudet:
 
-'''bash
+```bash
 poetry install
-'''
+```
 
+3. Käynnistä virtuaaliympäristö:
+
+```bash
+eval $(poetry env activate)
+```
+
+4. Käynnistä ohjelma
+
+```bash
+python3 src/analyser.py
+```
+
+## Testit
+
+Testit voit ajaa virtuaaliympäristössä käskyllä:
+
+```bash
+pytest src
+```
+
+## Testikattavuus
+
+Testikattavuuden saat näkyviin komennoilla:
+
+```bash
+coverage run --branch -m pytest src
+coverage report -m
+```
+
+Voit myös pyytää testikattavuuden html-raporttina:
+
+```bash
+coverage html
+```
+
+## Lopetus
+
+Virtuaaliympäristöstä pääset ulos kirjoittamalla:
+
+```bash
+deactivate
+```
 
