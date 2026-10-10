@@ -2,7 +2,7 @@ Testausasiat olivat minulle ihan uusia. Poetryyn törmäsin tällä kurssilla en
 
 Kattavuusraportti sanoo tällä hetkellä:
 
-![](./kuvat/coverage2026_10_10.png)
+![](./kuvat/coverage_2026_10_10.png)
 
 
 
