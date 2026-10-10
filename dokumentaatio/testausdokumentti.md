@@ -4,17 +4,6 @@ Kattavuusraportti sanoo tällä hetkellä:
 
 ![](./kuvat/coverage_2026_10_10.png)
 
-
-
-
-
-
-Name              Stmts   Miss Branch BrPart  Cover   Missing
--------------------------------------------------------------
-src/analyser.py     121      5     30      1    96%   15, 18, 218-220
--------------------------------------------------------------
-TOTAL               121      5     30      1    96%
-
 ## Yksikkötestit
 
 Kaikki luokan Analyser metodit testataan jollakin tavalla. Yksikkötesteillä testaamattomaksi jäävät vain KonsoliIo-luokan metodit, jotka hoitavat syötteen kysymisen käyttäjältä ja tulostustoiminnot. Nämä liittyvät käyttöliittymään, ja näyttävät toimivan ohjelman käytön perusteella, joten näille ei tehty yksikkötestejä. Metodeita testataan melko kattavilla syötteillä. Tiedostonlatausvaiheessa tapahtuvat poikkeukset käsitellään ohjelmassa, ja niitä on myös testattu. Yksikkötesteissä on myös koko ohjelman läpikäyvä testi, jonka toteuttamiseksi estin plot-ikkunan avautumisen unittest.mock.patch-metodilla.
