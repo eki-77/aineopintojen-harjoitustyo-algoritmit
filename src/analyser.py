@@ -166,9 +166,10 @@ class Analyser:
         ax.set_xlabel("Taajuus (Hz)")
         ax.set_ylabel("Suhteellinen teho")
         ax.plot(korit, tulokset)
-        huiput_x = [korit[x] for x in huiput]
-        huiput_y = [tulokset[x] for x in huiput]
-        ax.scatter(huiput_x, huiput_y, c='xkcd:deep purple', marker='s')
+        if huiput != None:
+            huiput_x = [korit[x] for x in huiput]
+            huiput_y = [tulokset[x] for x in huiput]
+            ax.scatter(huiput_x, huiput_y, c='xkcd:deep purple', marker='s')
         plt.show()
 
     def etsi_maksimit(self, tulokset):

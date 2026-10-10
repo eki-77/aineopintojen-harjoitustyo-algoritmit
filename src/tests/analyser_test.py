@@ -85,6 +85,15 @@ class TestAnalyser(unittest.TestCase):
         self.assertEqual(maksimit, None)
         maksimit = self.testi.etsi_maksimit([6,2,3,4,1,3,2,3,5,7,0,1,0,1,0,2,0,2,0,2,0,2,0,2,0,2,0,1,0,1,0])
         self.assertEqual(maksimit, [9,0,3,5,15,17,19,21,23,25])
+    
+    @patch("analyser.plt.show")
+    def test_plottaa_tulokset_none_kelpaa(self, mock_plt_show):
+        """Tämä testi ajettiin ensin ilman patchiä, jotta nähtiin että tämä muodostaa oikeanlaisen 
+        käppyrän ilman huippujen korostusta ja ohjelma ei kaadu virheeseen. Sitten lisättiin patch,
+        jolloin plot jää näyttämättä mutta koodi ajetaan.
+        """
+        self.testi.plottaa_tulokset([1,0,0,2],[100,200,300,400],None)
+        assert mock_plt_show.called
 
     @patch("analyser.plt.show")
     def test_analysoi(self, mock_plt_show):
