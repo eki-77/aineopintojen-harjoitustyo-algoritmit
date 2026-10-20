@@ -114,7 +114,7 @@ class TestAnalyser(unittest.TestCase):
         assert mock_plt_show.called
 
     @patch("analyser.plt.show")
-    def test_analysoi(self, mock_plt_show):
+    def test_analysoi_hiljaisuus(self, mock_plt_show):
         """Testataan, että systeemi toimii oikein wavilla, joka sisältää pelkkää hiljaisuutta (vain nollia) eikä
         siis huippuja lainkaan.
 
