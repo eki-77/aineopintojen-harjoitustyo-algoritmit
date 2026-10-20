@@ -16,4 +16,25 @@ Empiirisiä testejä on tehty niin, että on tutkittu ääninäytettä Audacityn
 
 Algoritmin kirjoituksen alkuvaiheessa fft-metodia testattiin tunnetulla syöte-muunnos-yhdistelmällä, joka oli [0,1,2,3] -> [6, -2+2j, -2, -2-2j]. Tämä laskettiin myös käsin paperille lähteistä löytyvän Signaalinkäsittelyn perusteet (Heikki Huttunen 2014) -kirjan menetelmällä sen varmistamiseksi, että algoritmi on ymmärretty oikein. 
 
+## Testien toistaminen
 
+Testit voit ajaa virtuaaliympäristössä käskyllä:
+
+```bash
+pytest src
+```
+
+## Testikattavuus
+
+Testikattavuuden saat näkyviin komennoilla:
+
+```bash
+coverage run --branch -m pytest src
+coverage report -m
+```
+
+Voit myös pyytää testikattavuuden html-raporttina:
+
+```bash
+coverage html
+```
