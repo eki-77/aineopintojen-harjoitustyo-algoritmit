@@ -22,6 +22,8 @@ Harjoitustyön ydin on toteuttaa itsekirjoitettu FFT-algoritmi voimakkaiden taaj
 
 ## Monimutkaistusideoita
 
+[työtä ei tarvinnut monimutkaistaa, joten nämä jäivät spekulaatioksi]
+
 Mikäli tämä ei riitä harjoitustyön vaatimusten täyttämiseen:
 
 - Tätä voisi kehittää toteuttamalla spektrianalyysin sijasta spektrogrammi.
