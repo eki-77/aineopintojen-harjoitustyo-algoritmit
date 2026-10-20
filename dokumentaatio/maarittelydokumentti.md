@@ -2,7 +2,7 @@
 
 Erkki Nurmi\
 tietojenkäsittelytieteen kandiohjelma (TKT)\
-Dokumentaatio on toteutettu muutoin suomeksi, mutta koodin sisäiset kommentit ovat englanniksi.
+Dokumentaatio on toteutettu muutoin suomeksi, mutta koodin sisäiset kommentit ovat englanniksi [tehtiinkin dokumentaatio ja koodin kommentit suomeksi, git-committien selosteet englanniksi].
 
 - aihe: Signaalinkäsittely, spektrianalyysi annetusta signaalista ja voimakkaimpien taajuuksien tunnistaminen.
 - Harjoitustyössä toteutetaan oma FFT-algoritmi.
