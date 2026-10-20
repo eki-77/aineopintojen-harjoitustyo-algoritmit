@@ -66,7 +66,10 @@ class TestAnalyser(unittest.TestCase):
         vastaus = self.testi.fft([1,1,1,1,1,1,1,1])
         pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
         self.assertEqual(pyoristetty, [8,0,0,0,0,0,0,0])
-
+        ##
+        vastaus = self.testi.fft([1,-1,1,-1])
+        pyoristetty = [round(x.real, 2) + round(x.imag, 2) * 1j for x in vastaus]
+        self.assertEqual(pyoristetty, [0,0,4,0])
 
     def test_skaalaa_reaaliluvuksi(self):
         vektori = [6, -3+4j, -2, -3-4j, 6, -2+2j, -2, -2-2j]
@@ -110,4 +113,16 @@ class TestAnalyser(unittest.TestCase):
         self.assertEqual(io.outputs[0], "Voimakkaimmat taajuudet ovat (hertseinä): [440.1, 199.9, 437.4, 196.5, 204.6, 435.4, 445.5, 194.5, 206.6, 433.4]")
         assert mock_plt_show.called
 
-    
+    @patch("analyser.plt.show")
+    def test_analysoi(self, mock_plt_show):
+        """Testataan, että systeemi toimii oikein wavilla, joka sisältää pelkkää hiljaisuutta (vain nollia) eikä
+        siis huippuja lainkaan.
+
+        Args:
+            mock_plt_show (_type_): show-metodin korvaaja
+        """
+        io = StubIo(["silence_1s.wav"])
+        self.testi = Analyser(io)
+        self.testi.analysoi()
+        self.assertEqual(io.outputs[0], "Ääninäyte ei sisällä taajuushuippuja.")
+        assert mock_plt_show.called
